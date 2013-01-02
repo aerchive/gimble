@@ -138,7 +138,7 @@ USAGE EXAMPLE
     
     LogAndOutput 'Copying files to development deploy...'
     try {
-        foreach (`$filename in $files) {
+        foreach ($filename in $files) {
             LogAndOutput ('  --> Copying ' + $filename)
             Copy-Item $repo\currentpath\img\$filename $deploypath\img -force | Out-Null
         }
@@ -146,7 +146,7 @@ USAGE EXAMPLE
     }
     catch {
         LogAndOutput 'Error: Can not copy files to deploy location.'
-        LogOnly (`$error[0].Exception.Message)
+        LogOnly ($error[0].Exception.Message)
         LogAndOutput ('See the logfile at ' + $ps_QualifiedLogfile + ' for more information.')
         LogAndOutput 'Execution halting.'
         Exit
