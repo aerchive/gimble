@@ -10,11 +10,21 @@ A micro logging utility for Windows PowerShell with unique logfile names and aut
 Usage:
 ------
 
-When included in another powershell script, 
-gimble provides two simple functions:
+This script must be included (dot-sourced, etc) in your script
+in which you'd like to use the two logging functions. 
+When your script runs, gimble will automatically create a new 
+logfile specific to that execution, and dynamically log
+whatever your script tells it to.
 
-    LogAndOutput ($textBlock)
-    LogOnly ($textBlock)    
+Include Examples
+----------------
+
+    .\$ps_ExecPath\powershell_functions\gimble_scriptlogger.ps1 $ps_LogPath
+    .\util\gimble_scriptlogger.ps1 -path 'C:\Some Path\ToMy\LogFiles'
+    .\gimble_scriptlogger.ps1 'C:\Some Path\ToMy\LogFiles'
+
+Logfiles
+--------
 
 Each script execution will create a log file in a directory 
 which you specify, with a filename like this: 
@@ -34,6 +44,9 @@ Logfile filename Examples:
     magus_2012-09-10_0145-48pm.txt (no identifier)
     portquery_NDPRRBACKUP_2012-09-10_0200-41pm.txt (identifier, 'portquery')
 
+Logfile variables:
+------------------
+
 The active gimble logfile is accessible in parent (calling) scripts
 by name and by fully qualified path and name, as:
 
@@ -42,28 +55,26 @@ by name and by fully qualified path and name, as:
 
 I tried to make these variable names reasonably unique.
 
+
+Provided Functions
+------------------
+
+When included in another powershell script, 
+gimble provides two simple functions:
+
+    LogAndOutput ($textBlock)
+    LogOnly ($textBlock)    
+
 Any single-line or multi-line text that you pass to
-LogAndOutput() will be written to that log, realtime,
+LogAndOutput() will be written to the log, realtime,
 as the script executes, and will also be written to
 the console or standard out.
      
 Any single-line or multi-line text that you pass to
-LogOnly() will be written to that log, realtime,
+LogOnly() will be written to the log, realtime,
 as the script executes, but will not be written to
 the console or standard out.
-    
-This script must be included (dot-sourced, etc) in your script
-in which you'd like to use the two logging functions. 
-When your script runs, gimble will automatically create a new 
-logfile specific to that execution, and dynamically log
-whatever your script tells it to.
 
-Include Examples
-----------------
-
-    . $ps_CurrentPath\powershell_functions\gimble_scriptlogger.ps1 $ps_LogPath
-    . \util\gimble_scriptlogger.ps1 -path 'C:\Some Path\ToMy\LogFiles'
-    . gimble_scriptlogger.ps1 'C:\Some Path\ToMy\LogFiles'
 
 HELP PARAMETERS
 ---------------
@@ -108,27 +119,27 @@ ALL PARAMETERS
 More Include Examples (Quick Examples of Purge Settings)
 --------------------------------------------------------
 
-   	. gimble_scriptlogger.ps1 -path $ps_LogPath -ident 'bootstrapbldr' -maxdays 1 -purgeglobal
+   	.\gimble_scriptlogger.ps1 -path $ps_LogPath -ident 'bootstrapbldr' -maxdays 1 -purgeglobal
 
 = Keep only today's script logs in the log folder (and, these logfiles have prefix 'bootstrapbldr').
 
-    . gimble_scriptlogger.ps1 $ps_LogPath 'bootstrapbldr' 1 0 -purgeglobal
+    .\gimble_scriptlogger.ps1 $ps_LogPath 'bootstrapbldr' 1 0 -purgeglobal
 
 = Same as above.
 
-    . gimble_scriptlogger.ps1 $ps_LogPath -maxfiles 50
+    .\gimble_scriptlogger.ps1 $ps_LogPath -maxfiles 50
 
 = Keep a maximum of 50 text files in the log folder (and log files have no prefixes).
 
-    . gimble_scriptlogger.ps1 $ps_LogPath 'site-pings' -maxdays 30
+    .\gimble_scriptlogger.ps1 $ps_LogPath 'site-pings' -maxdays 30
 
 = Keep text files with the filename prefix 'site-pings' in the log folder for 30 days.
 
-    . gimble_scriptlogger.ps1 $ps_LogPath 'site-pings' -maxfiles 10
+    .\gimble_scriptlogger.ps1 $ps_LogPath 'site-pings' -maxfiles 10
 
 = Keep a maximum of 10 text files with prefix 'site-pings' in the log folder.
 
-    . `$ps_CurrentPath\powershell_functions\gimble_scriptlogger.ps1 $ps_LogPath 'wabe' -maxfiles 10 -purgeglobal
+    .\$ps_CurrentPath\powershell_functions\gimble_scriptlogger.ps1 $ps_LogPath 'wabe' -maxfiles 10 -purgeglobal
 
 = Keep a maximum of 10 text files in the log folder (and, new logfiles have prefix 'wabe').
 
