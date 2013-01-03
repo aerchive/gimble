@@ -38,13 +38,13 @@ or
 
 (if you have not specified a script identifier).
 
-Logfile filename Examples:
+Logfile Filename Examples:
 --------------------------
 
     magus_2012-09-10_0145-48pm.txt (no identifier)
     portquery_NDPRRBACKUP_2012-09-10_0200-41pm.txt (identifier, 'portquery')
 
-Logfile variables:
+Logfile Variables:
 ------------------
 
 The active gimble logfile is accessible in parent (calling) scripts
